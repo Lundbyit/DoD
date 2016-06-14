@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Program
+    abstract class GameObject
     {
-        static void Main(string[] args)
+        public GameObject(char icon)
         {
-            Game game = new Game();
-            game.Play();
+            this.Icon = icon;
         }
+        public char Icon { get; private set; }
     }
 }

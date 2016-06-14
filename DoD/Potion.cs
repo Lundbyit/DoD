@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Program
+    class Potion : Item
     {
-        static void Main(string[] args)
+        public Potion(string name) : base(name, 1)
         {
-            Game game = new Game();
-            game.Play();
+            
         }
+        public override void UseItem(Creature user)
+        {
+        }
+
     }
 }

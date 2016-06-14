@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Program
+    class Room
     {
-        static void Main(string[] args)
-        {
-            Game game = new Game();
-            game.Play();
-        }
+        public Item Item { get; set; }
+
     }
 }

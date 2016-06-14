@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Program
+    class EvilCucumber : Monster
     {
-        static void Main(string[] args)
+        public EvilCucumber(int health, string name): base(health, name, 5)
         {
-            Game game = new Game();
-            game.Play();
+            this.AttackDamage = 5;
         }
+        
     }
 }
