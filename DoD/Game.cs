@@ -61,7 +61,7 @@ namespace DungeonsOfDoom
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
             Console.WriteLine("Backpack:");
 
-            foreach (Item items in player.Inventory)
+            foreach (Iluggable items in player.Inventory)
             {
                 Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
                 Console.WriteLine($"{items.Name}  Weight: {items.Weight}");
@@ -72,7 +72,7 @@ namespace DungeonsOfDoom
         }
         private void FightArena(Monster monster)
         {
-            TextUtils.AnimateLine($"You encountered a {monster.Name}", 100);
+            TextUtils.AnimateLine($"You encountered a {monster.Name}", 10);
             while (player.IsAlive && monster.IsAlive)
             {
                 
@@ -107,6 +107,7 @@ namespace DungeonsOfDoom
             }
             if (player.IsAlive)
             {
+                player.Inventory.Add(monsters[monsterIndex]);
                 TextUtils.AnimateLine($"You killed {monster.Name}");
                 monsters.RemoveAt(monsterIndex);
                 fightOn = false;

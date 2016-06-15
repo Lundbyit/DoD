@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    abstract class Item
+    abstract class Item : Iluggable
     {
-        public string Name { get; private set; }
-        public double Weight { get; private set; }
+        public string Name { get; set; }
+        public double Weight { get; set; }
         public abstract void UseItem(Creature user);
         public Item(string name, double weight)
         {

@@ -20,7 +20,7 @@ namespace DungeonsOfDoom
         }
         internal static void AnimateLine(string text)
         {
-            AnimateLine(text, 100);
+            AnimateLine(text, 10);
         }
 
     }

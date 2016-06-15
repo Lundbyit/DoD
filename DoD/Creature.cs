@@ -19,7 +19,7 @@ namespace DungeonsOfDoom
         public int Y { get; set; }
         public int Agility { get; set; }
 
-        public List<Item> Inventory { get; private set; } = new List<Item>();
+        public List<Iluggable> Inventory { get; private set; } = new List<Iluggable>();
 
         public double InventorySize { get;  set; }
 
