@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleFunctions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,9 @@ namespace DungeonsOfDoom
         //Public Methods
         public void Play()
         {
+            AsciiArt.PrintCentered("HAHAHA");
+            Console.ReadKey();
+
             do
             {
                 Console.Clear();
