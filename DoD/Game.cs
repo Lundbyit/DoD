@@ -191,9 +191,24 @@ namespace DungeonsOfDoom
                 for (int x = 0; x < WorldWidth; x++)
                 {
                     Room room = world[x, y];
+                    bool monsterExists = false;
+                    int monsterI = -1;
+                    for (int i = 0; i < monsters.Count(); i++)
+                    {
+                        if (monsters[i].X == x && monsters[i].Y == y)
+                        {
+                            monsterExists = true;
+                            monsterI = i;
+                        }
+                    }
                     if (player.X == x && player.Y == y)
                     {
                         Console.Write(player.Icon);
+                    }
+                    else if (monsterExists)
+                    {
+                        Console.Write(monsters[monsterI].Name[0]);
+                        monsterExists = false;
                     }
                     else if (room.Item != null)
                     {
@@ -203,15 +218,11 @@ namespace DungeonsOfDoom
                     {
                         Console.Write(".");
                     }
-                    foreach (Monster monster in monsters)
-                    {
-                        if (monster.X == x && monster.Y == y && monster.IsAlive)
-                        {
-                            Console.Write(monster.Icon);
-                        }
+
+               
                         //Console.SetCursorPosition(monster.X, monster.Y);
                         //Console.Write(monster.Icon);
-                    }
+                    
 
                 }
                 Console.WriteLine();
