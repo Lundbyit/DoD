@@ -15,14 +15,10 @@ namespace DungeonsOfDoom
         Player player;
         List<Monster> monsters = new List<Monster>();
         Room[,] world;
-        const int WorldWidth = 20;
-        const int WorldHeight = 5;
+        const int WorldWidth = 30;
+        const int WorldHeight = 10;
         bool fightOn;
         int monsterIndex;
-        //Flyttat ut de här så att de kan nås överallt, vi får ändra plats precis innan vi skriver ut den koden vi vill skriva ut
-        int cursorLeft = 50;
-        int cursorTop = 17;
-
 
         //Contructors
         public Game()
@@ -33,13 +29,7 @@ namespace DungeonsOfDoom
         //Public Methods
         public void Play()
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            AsciiArt.PrintCentered("Dump of");
-            AsciiArt.PrintCentered("Dominions");
-            Console.SetCursorPosition(cursorLeft, cursorTop);
-            Console.WriteLine("Press enter...");
-
+            AsciiArt.PrintCentered("HAHAHA");
             Console.ReadKey();
 
             do
@@ -63,10 +53,9 @@ namespace DungeonsOfDoom
         //Private Methods
         private void PrintInventory()
         {
-
+            const int cursorLeft = 20;
+            int cursorTop = 1;
             //int potions = 0;
-            cursorLeft = 20;
-            cursorTop = 1;
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
@@ -91,11 +80,11 @@ namespace DungeonsOfDoom
                 {
                     //Vi kan göra en metod 
                     player.Attack(monster);
-                    TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                    TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
                     if (monster.IsAlive)
                     {
                         monster.Attack(player);
-                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
                     }
                 }
                 else
@@ -107,11 +96,11 @@ namespace DungeonsOfDoom
                         monsters.RemoveAt(monsterIndex);
                         return;
                     }
-                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
                     if (player.IsAlive)
                     {
                         player.Attack(monster);
-                        TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                        TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
                     }
                 }
 
