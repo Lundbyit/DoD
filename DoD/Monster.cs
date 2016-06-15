@@ -15,9 +15,9 @@ namespace DungeonsOfDoom
             Weight = RndUtils.ReturnValue(20, 50);
             monsterCount++;
         }
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
-        public double Weight { get; set; }
+        public double Weight { get; private set; }
 
         public static int monsterCount;
     }

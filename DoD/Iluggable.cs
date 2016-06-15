@@ -8,9 +8,9 @@ namespace DungeonsOfDoom
 {
     interface Iluggable
     {
-        double Weight { get; set; }
+        double Weight { get; }
 
-        string Name { get; set; }
+        string Name { get; }
 
 
     }
