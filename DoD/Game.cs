@@ -57,23 +57,6 @@ namespace DungeonsOfDoom
                 Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
                 Console.WriteLine($"{items.Name}  Weight: {items.Weight}");
                 cursorTop++;
-                
-            //    if (items.Name == "Sword")
-            //    {
-            //        swords++;
-            //    }
-            //    else if (items.Name == "Potion")
-            //    {
-            //        potions++;
-            //    }
-            //}
-            //if (swords > 0)
-            //{
-            //    Console.WriteLine(swords + "x Swords");
-            //}
-            //if (potions > 0)
-            //{
-            //    Console.WriteLine(potions + "x Potions");
             }
 
             
