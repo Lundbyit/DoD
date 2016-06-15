@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
+    //randomUtils Returnar true, return number
+
     class Game
     {
         //Fields
@@ -222,6 +224,8 @@ namespace DungeonsOfDoom
 
         private void HandleMovement()
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Ange riktning...");
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
