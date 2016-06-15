@@ -13,5 +13,5 @@ namespace DungeonsOfDoom
             this.AttackDamage = 5; //Hårdkodad nu
         }
 
-    }
+    }//
 }
