@@ -8,20 +8,20 @@ namespace DungeonsOfDoom
 {
     class CheekyTomato : Monster
     {
-        public CheekyTomato(int health, string name) : base(health, name, 10)
+        public CheekyTomato(int health) : base(health, "CheekyTomato", 10)
         {
             this.AttackDamage = 3; //Hårdkodad
         }
-        public override void Attack(Creature enemy)
+        public override string Attack(Creature enemy)
         {
             if ((this.AttackDamage * 2) < enemy.AttackDamage)
             {
-                Console.WriteLine($"{this.Name} ran away");
+                return$"{this.Name} ran away";
                 this.Health = 0;
             }
             else
             {
-                base.Attack(enemy);
+                return base.Attack(enemy);
             }
         }
     }
