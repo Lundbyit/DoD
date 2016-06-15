@@ -10,12 +10,13 @@ namespace DungeonsOfDoom
     {
         //Fields
         Player player;
-        Monster monster;
+        List<Monster> monsters = new List<Monster>();
         Room[,] world;
         const int WorldWidth = 20;
         const int WorldHeight = 5;
         bool fightOn;
         Random rnd;
+        int monsterIndex;
 
         //Contructors
         public Game()
@@ -68,32 +69,34 @@ namespace DungeonsOfDoom
             }
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
         }
-        private void FightArena()
+        private void FightArena(Monster monster)
         {
             Console.WriteLine($"You encountered a {monster.Name}");
             while (player.IsAlive && monster.IsAlive)
             {
+                //Metod
                 if (player.Agility >= monster.Agility)
                 {
-                    player.Attack(monster, player.AttackDamage);
+                    player.Attack(monster);
                     Console.WriteLine($"You did {player.AttackDamage}damage on {monster.Name}");
                     if (monster.IsAlive)
                     {
-                        monster.Attack(player, monster.AttackDamage);
+                        monster.Attack(player);
                         Console.WriteLine($"{monster.Name} did {monster.AttackDamage}damage on you");
                     }
                 }
                 else
                 {
-                    monster.Attack(player, monster.AttackDamage);
+                    monster.Attack(player);
                     if (!monster.IsAlive)
                     {
+                        monsters.RemoveAt(monsterIndex);
                         return;
                     }
                     Console.WriteLine($"{monster.Name} did {monster.AttackDamage}damage on you");
                     if (player.IsAlive)
                     {
-                        player.Attack(monster, player.AttackDamage);
+                        player.Attack(monster);
                         Console.WriteLine($"You did {player.AttackDamage}damage on {monster.Name}");
                     }
                 }
@@ -102,10 +105,13 @@ namespace DungeonsOfDoom
             if (player.IsAlive)
             {
                 Console.WriteLine($"You killed {monster.Name}");
+                monsters.RemoveAt(monsterIndex);
+                fightOn = false;
             }
             else
             {
                 Console.WriteLine("You died");
+                fightOn = false;
             }
         }
 
@@ -138,7 +144,12 @@ namespace DungeonsOfDoom
                     }
                 }
             }
+            for (int i = 0; i < 4; i++)
+            {
+                Monster monster;
                 monster = PlaceMonsters();
+                monsters.Add(monster);
+            }
         }
 
         private Monster PlaceMonsters()
@@ -187,32 +198,30 @@ namespace DungeonsOfDoom
                     {
                         Console.Write(player.Icon);
                     }
-                    else if (monster.X == x && monster.Y == y && monster.IsAlive)
-                    {
-                        Console.Write(monster.Icon);
-                    }
                     else if (room.Item != null)
                     {
                         Console.Write("I");
-                        //if (room.Item.Name == "Sword")
-                        //{
-                        //    Console.Write("S");
-                        //}
-                        //else if (room.Item.Name == "Potion")
-                        //{
-                        //    Console.Write("T");
-                        //}
                     }
                     else
                     {
                         Console.Write(".");
                     }
+                    foreach (Monster monster in monsters)
+                    {
+                        if (monster.X == x && monster.Y == y && monster.IsAlive)
+                        {
+                            Console.Write(monster.Icon);
+                        }
+                        //Console.SetCursorPosition(monster.X, monster.Y);
+                        //Console.Write(monster.Icon);
+                    }
+
                 }
                 Console.WriteLine();
             }
             if (fightOn)
             {
-                FightArena();
+                FightArena(monsters[monsterIndex]);
             }
 
         }
@@ -236,11 +245,8 @@ namespace DungeonsOfDoom
             {
                 player.X = newX;
                 player.Y = newY;
-                if (newX == monster.X && newY == monster.Y)
-                {
-                    fightOn = true;
-                }
-                else if (world[newX, newY].Item != null)
+
+                if (world[newX, newY].Item != null)
                 {
                     player.Inventory.Add(world[newX, newY].Item);
                     world[newX, newY].Item.UseItem(player);
@@ -249,6 +255,14 @@ namespace DungeonsOfDoom
                     world[newX, newY].Item = null;
                 }
 
+                for (int i = 0; i < monsters.Count(); i++)
+                {
+                    if (newX == monsters[i].X && newY == monsters[i].Y)
+                    {
+                        fightOn = true;
+                        monsterIndex = i;
+                    }
+                }
             }
         }
     }
