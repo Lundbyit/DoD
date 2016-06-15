@@ -44,30 +44,39 @@ namespace DungeonsOfDoom
         //Private Methods
         private void PrintInventory()
         {
-            int swords = 0;
-            int potions = 0;
-
+            int cursorLeft = 10;
+            int cursorTop = 1;
+            //int potions = 0;
+            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
+            Console.WriteLine($"Backpack size: {player.InventorySize} oz");
+            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
             Console.WriteLine("Backpack:");
+
             foreach (Item items in player.Inventory)
             {
-                if (items.Name == "Sword")
-                {
-                    swords++;
-                }
-                else if (items.Name == "Potion")
-                {
-                    potions++;
-                }
+                Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
+                Console.WriteLine($"{items.Name}  Weight: {items.Weight}");
+                cursorTop++;
+                
+            //    if (items.Name == "Sword")
+            //    {
+            //        swords++;
+            //    }
+            //    else if (items.Name == "Potion")
+            //    {
+            //        potions++;
+            //    }
+            //}
+            //if (swords > 0)
+            //{
+            //    Console.WriteLine(swords + "x Swords");
+            //}
+            //if (potions > 0)
+            //{
+            //    Console.WriteLine(potions + "x Potions");
             }
-            if (swords > 0)
-            {
-                Console.WriteLine(swords + "x Swords");
-            }
-            if (potions > 0)
-            {
-                Console.WriteLine(potions + "x Potions");
-            }
-            Console.WriteLine($"Backpack size: {player.InventorySize} oz");
+
+            
         }
         private void FightArena(Monster monster)
         {
