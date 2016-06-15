@@ -8,9 +8,9 @@ namespace DungeonsOfDoom
 {
     class EvilCucumber : Monster
     {
-        public EvilCucumber(int health, string name): base(health, name, 5)
+        public EvilCucumber(int health): base(health, "Evilcucumber", 5)
         {
-            this.AttackDamage = 5;
+            this.AttackDamage = 5; //Hårdkodad
         }
         
     }

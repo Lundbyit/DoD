@@ -74,9 +74,10 @@ namespace DungeonsOfDoom
             Console.WriteLine($"You encountered a {monster.Name}");
             while (player.IsAlive && monster.IsAlive)
             {
-                //Metod
+                
                 if (player.Agility >= monster.Agility)
                 {
+                    //Vi kan göra en metod 
                     player.Attack(monster);
                     Console.WriteLine($"You did {player.AttackDamage}damage on {monster.Name}");
                     if (monster.IsAlive)
@@ -88,6 +89,7 @@ namespace DungeonsOfDoom
                 else
                 {
                     monster.Attack(player);
+                    //Köra en if monster isAlive(?)
                     if (!monster.IsAlive)
                     {
                         monsters.RemoveAt(monsterIndex);
@@ -110,7 +112,7 @@ namespace DungeonsOfDoom
             }
             else
             {
-                Console.WriteLine("You died");
+                Console.WriteLine("You died.");
                 fightOn = false;
             }
         }
@@ -159,10 +161,10 @@ namespace DungeonsOfDoom
 
             if (monster == 0)
             {
-                C = new EvilCucumber(10, "EvilCucumber");
+                C = new EvilCucumber(10);
             }
             else
-                C = new CheekyTomato(10, "CheekyTomato");
+                C = new CheekyTomato(10);
 
             int monsterX = rnd.Next(0, WorldWidth);
             int monsterY = rnd.Next(0, WorldHeight);

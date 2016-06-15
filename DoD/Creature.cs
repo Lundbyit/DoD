@@ -28,9 +28,11 @@ namespace DungeonsOfDoom
         //    enemy.Health = 0;
         //    Console.WriteLine($"You killed {enemy.Name}");
         //}
-        public virtual void Attack(Creature enemy)
+        public virtual string Attack(Creature enemy)
         {
             enemy.Health -= this.AttackDamage;
+            return $"" +
+                $"";
         }
         public int AttackDamage { get; set; }
 
