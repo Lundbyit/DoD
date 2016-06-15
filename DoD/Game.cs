@@ -19,6 +19,10 @@ namespace DungeonsOfDoom
         const int WorldHeight = 5;
         bool fightOn;
         int monsterIndex;
+        //Flyttat ut de här så att de kan nås överallt, vi får ändra plats precis innan vi skriver ut den koden vi vill skriva ut
+        int cursorLeft = 50;
+        int cursorTop = 17;
+
 
         //Contructors
         public Game()
@@ -29,7 +33,13 @@ namespace DungeonsOfDoom
         //Public Methods
         public void Play()
         {
-            AsciiArt.PrintCentered("HAHAHA");
+            Console.WriteLine();
+            Console.WriteLine();
+            AsciiArt.PrintCentered("Dump of");
+            AsciiArt.PrintCentered("Dominions");
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+            Console.WriteLine("Press enter...");
+
             Console.ReadKey();
 
             do
@@ -53,9 +63,10 @@ namespace DungeonsOfDoom
         //Private Methods
         private void PrintInventory()
         {
-            int cursorLeft = 10;
-            int cursorTop = 1;
+
             //int potions = 0;
+            cursorLeft = 20;
+            cursorTop = 1;
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
