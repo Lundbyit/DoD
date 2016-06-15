@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DoD
 {
     class CheekyTomato : Monster
     {
@@ -16,8 +16,8 @@ namespace DungeonsOfDoom
         {
             if ((this.AttackDamage * 2) < enemy.AttackDamage)
             {
-                return$"{this.Name} ran away";
                 this.Health = 0;
+                return $"{this.Name} died of a heartattack";             
             }
             else
             {

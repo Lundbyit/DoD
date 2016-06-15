@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DoD
 {
     abstract class Creature : GameObject
     {
-        public Creature(int health, char icon, int agility) : base(icon)
+        public Creature(int health, char icon, int agility, string name) : base(icon)
         {
+            this.Name = name;
             this.Health = health;
             this.Agility = agility;
         }
+        public string Name { get; private set; }
         public int Health { get; set; }
         public bool IsAlive { get { return Health > 0; } }
         public int X { get; set; }
@@ -22,17 +24,10 @@ namespace DungeonsOfDoom
         public List<Iluggable> Inventory { get; private set; } = new List<Iluggable>();
 
         public double InventorySize { get;  set; }
-
-        //public void Fight(Monster enemy)
-        //{
-        //    enemy.Health = 0;
-        //    Console.WriteLine($"You killed {enemy.Name}");
-        //}
         public virtual string Attack(Creature enemy)
         {
             enemy.Health -= this.AttackDamage;
-            return $"" +
-                $"";
+            return $"{this.Name} did {this.AttackDamage} damage on {enemy.Name}";
         }
         public int AttackDamage { get; set; }
 
