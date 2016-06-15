@@ -189,6 +189,10 @@ namespace DungeonsOfDoom
             {
                 for (int x = 0; x < WorldWidth; x++)
                 {
+                    foreach (Monster monster in monsters)
+                    if (monster.X == x && monster.Y == y && monster.IsAlive)
+                          Console.Write(monster.Icon);
+                    }
                     Room room = world[x, y];
                     if (player.X == x && player.Y == y)
                     {
@@ -198,19 +202,12 @@ namespace DungeonsOfDoom
                     {
                         Console.Write("I");
                     }
+
                     else
                     {
                         Console.Write(".");
                     }
-                    foreach (Monster monster in monsters)
-                    {
-                        if (monster.X == x && monster.Y == y && monster.IsAlive)
-                        {
-                            Console.Write(monster.Icon);
-                        }
-                        //Console.SetCursorPosition(monster.X, monster.Y);
-                        //Console.Write(monster.Icon);
-                    }
+
 
                 }
                 Console.WriteLine();
