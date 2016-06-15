@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleFunctions;
 
 namespace DungeonsOfDoom
 {
@@ -28,6 +29,7 @@ namespace DungeonsOfDoom
         //Public Methods
         public void Play()
         {
+            AsciiArt
             do
             {
                 Console.Clear();
