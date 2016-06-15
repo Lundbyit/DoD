@@ -44,27 +44,31 @@ namespace DungeonsOfDoom
         private void PrintInventory()
         {
             int swords = 0;
+            double weightSword = 0;
+            double weightPotion = 0;
             int potions = 0;
 
-            Console.WriteLine("Backpack:");
+            Console.WriteLine("Inventory:");
             foreach (Item items in player.Inventory)
             {
                 if (items.Name == "Sword")
                 {
                     swords++;
+                    weightSword += items.Weight;
                 }
                 else if (items.Name == "Potion")
                 {
                     potions++;
+                    weightPotion += items.Weight;
                 }
             }
             if (swords > 0)
             {
-                Console.WriteLine(swords + "x Swords");
+                Console.WriteLine(swords + "x Swords" + " Weight:" + weightSword);
             }
             if (potions > 0)
             {
-                Console.WriteLine(potions + "x Potions");
+                Console.WriteLine(potions + "x Potions" + " Weight:" + weightPotion);
             }
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
         }
@@ -105,7 +109,7 @@ namespace DungeonsOfDoom
             }
             else
             {
-                Console.WriteLine("You died");
+                Console.WriteLine("WASTED. GAME OVER");
             }
         }
 
