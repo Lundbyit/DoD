@@ -68,7 +68,7 @@ namespace DungeonsOfDoom
         }
         private void FightArena(Monster monster)
         {
-            Console.WriteLine($"You encountered a {monster.Name}");
+            TextUtils.AnimateLine($"You encountered a {monster.Name}", 100);
             while (player.IsAlive && monster.IsAlive)
             {
                 
@@ -76,11 +76,11 @@ namespace DungeonsOfDoom
                 {
                     //Vi kan göra en metod 
                     player.Attack(monster);
-                    Console.WriteLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                    TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
                     if (monster.IsAlive)
                     {
                         monster.Attack(player);
-                        Console.WriteLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
                     }
                 }
                 else
@@ -92,25 +92,25 @@ namespace DungeonsOfDoom
                         monsters.RemoveAt(monsterIndex);
                         return;
                     }
-                    Console.WriteLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
                     if (player.IsAlive)
                     {
                         player.Attack(monster);
-                        Console.WriteLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                        TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
                     }
                 }
 
             }
             if (player.IsAlive)
             {
-                Console.WriteLine($"You killed {monster.Name}");
+                TextUtils.AnimateLine($"You killed {monster.Name}");
                 monsters.RemoveAt(monsterIndex);
                 fightOn = false;
                 Monster.monsterCount--;
             }
             else
             {
-                Console.WriteLine("You died.");
+                TextUtils.AnimateLine("You died.");
                 fightOn = false;
             }
         }
@@ -154,7 +154,7 @@ namespace DungeonsOfDoom
         {
             Monster C;
 
-            if (RndUtils.Try())
+            if (RndUtils.Try(50))
             {
                 C = new EvilCucumber(10);
             }
@@ -171,7 +171,7 @@ namespace DungeonsOfDoom
         private Item WhichItem()
         {
             
-            if (RndUtils.Try())
+            if (RndUtils.Try(50))
             {
                 Weapon Sword = new Weapon("Sword", 10, 2);
                 return Sword;
@@ -238,7 +238,7 @@ namespace DungeonsOfDoom
         {
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("Ange riktning...");
+            //TextUtils.AnimateLine("Ange riktning...");
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             int newX = player.X;

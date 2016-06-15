@@ -14,16 +14,12 @@ namespace DungeonsOfDoom
         {
             return rnd.Next(lower, upper);
         }
-        public static bool Try()
+
+        public static bool Try(int procent)
         {
-            if (rnd.Next (0,100) < 50)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return ReturnValue(1, 101) <= procent;
         }
+
+   
     }
 }
