@@ -12,7 +12,12 @@ namespace DungeonsOfDoom
         public Monster(int health, string name, int agility) : base(health, name[0], agility)
         {
             this.Name = name;
+            monsterCount++;
         }
         public string Name { get; private set; }
+
+        public static int monsterCount;
     }
+
+
 }

@@ -17,14 +17,12 @@ namespace DungeonsOfDoom
         const int WorldWidth = 20;
         const int WorldHeight = 5;
         bool fightOn;
-        Random rnd;
         int monsterIndex;
 
         //Contructors
         public Game()
         {
             player = new Player(100, 'P');
-            rnd = new Random();
             CreateWorld();
         }
         //Public Methods
@@ -38,9 +36,14 @@ namespace DungeonsOfDoom
                 PrintInventory();
                 HandleMovement();
 
-            } while (player.IsAlive);
-
-            Console.WriteLine("Game Over");
+            } while (player.IsAlive && Monster.monsterCount > 0);
+            Console.Clear();
+            if (player.IsAlive)
+            {
+                Console.WriteLine("Congratulations, you won the game.");
+            }
+            else
+            Console.WriteLine("GAME OVER YOU SUCK");
         }
 
         //Private Methods
@@ -103,6 +106,7 @@ namespace DungeonsOfDoom
                 Console.WriteLine($"You killed {monster.Name}");
                 monsters.RemoveAt(monsterIndex);
                 fightOn = false;
+                Monster.monsterCount--;
             }
             else
             {
@@ -129,13 +133,11 @@ namespace DungeonsOfDoom
                 {
 
                     Room room = new Room();
-                    int RandomPlacement = rnd.Next(10);
                     world[x, y] = room;
 
-                    if (RandomPlacement == 1 && x != 0 && y != 0) //If the room 
+                    if (RndUtils.ReturnValue (0, 10) == 1 && x != 0 && y != 0) //If the room 
                     {
-                        //Random random = new Random();
-                        room.Item = WhichItem(rnd);
+                        room.Item = WhichItem();
 
                     }
                 }
@@ -150,27 +152,26 @@ namespace DungeonsOfDoom
 
         private Monster PlaceMonsters()
         {
-            int monster = rnd.Next(0, 2);
             Monster C;
 
-            if (monster == 0)
+            if (RndUtils.Try())
             {
                 C = new EvilCucumber(10);
             }
             else
                 C = new CheekyTomato(10);
 
-            int monsterX = rnd.Next(0, WorldWidth);
-            int monsterY = rnd.Next(0, WorldHeight);
+            int monsterX = RndUtils.ReturnValue(0, WorldWidth);
+            int monsterY = RndUtils.ReturnValue(0, WorldHeight);
             C.X = monsterX;
             C.Y = monsterY;
             return C;
         }
 
-        private Item WhichItem(Random rnd)
+        private Item WhichItem()
         {
-            int WhichItem = rnd.Next(2);
-            if (WhichItem == 0)
+            
+            if (RndUtils.Try())
             {
                 Weapon Sword = new Weapon("Sword", 10, 2);
                 return Sword;
