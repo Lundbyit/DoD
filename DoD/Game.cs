@@ -15,8 +15,8 @@ namespace DungeonsOfDoom
         Player player;
         List<Monster> monsters = new List<Monster>();
         Room[,] world;
-        const int WorldWidth = 20;
-        const int WorldHeight = 5;
+        const int WorldWidth = 30;
+        const int WorldHeight = 10;
         bool fightOn;
         int monsterIndex;
 
@@ -53,7 +53,7 @@ namespace DungeonsOfDoom
         //Private Methods
         private void PrintInventory()
         {
-            int cursorLeft = 10;
+            const int cursorLeft = 20;
             int cursorTop = 1;
             //int potions = 0;
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
@@ -80,11 +80,11 @@ namespace DungeonsOfDoom
                 {
                     //Vi kan göra en metod 
                     player.Attack(monster);
-                    TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                    TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
                     if (monster.IsAlive)
                     {
                         monster.Attack(player);
-                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
                     }
                 }
                 else
@@ -96,11 +96,11 @@ namespace DungeonsOfDoom
                         monsters.RemoveAt(monsterIndex);
                         return;
                     }
-                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage}damage on you");
+                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
                     if (player.IsAlive)
                     {
                         player.Attack(monster);
-                        TextUtils.AnimateLine($"You did {player.AttackDamage}damage on {monster.Name}");
+                        TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
                     }
                 }
 
