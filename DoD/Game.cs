@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
+    //randomUtils Returnar true, return number
+
     class Game
     {
         //Fields
@@ -46,34 +48,20 @@ namespace DungeonsOfDoom
         {
             int cursorLeft = 10;
             int cursorTop = 1;
-            int i = 1;
-            double sumWeight= 0;
-
+            //int potions = 0;
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
-           
-            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 1);
-            Console.Write($"Total weight of items: {sumWeight}");
-            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
-
+            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
             Console.WriteLine("Backpack:");
 
             foreach (Item items in player.Inventory)
             {
-
-                Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 4);
-                Console.WriteLine($"{i}.{items.Name}  Weight: {items.Weight}");
+                Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
+                Console.WriteLine($"{items.Name}  Weight: {items.Weight}");
                 cursorTop++;
-                i++;
-                sumWeight += items.Weight;
             }
+
             
-            
-
-
-
-
-
         }
         private void FightArena(Monster monster)
         {
@@ -236,6 +224,8 @@ namespace DungeonsOfDoom
 
         private void HandleMovement()
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Ange riktning...");
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
