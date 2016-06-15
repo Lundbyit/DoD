@@ -12,7 +12,7 @@ namespace DungeonsOfDoom
         {
             this.AttackDamage = 3; //Hårdkodad
         }
-        public override void Attack(Creature enemy, int attackdamage)
+        public override void Attack(Creature enemy)
         {
             if ((this.AttackDamage * 2) < enemy.AttackDamage)
             {
@@ -21,7 +21,7 @@ namespace DungeonsOfDoom
             }
             else
             {
-                base.Attack(enemy, attackdamage);
+                base.Attack(enemy);
             }
         }
     }
