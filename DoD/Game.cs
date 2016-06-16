@@ -178,7 +178,7 @@ namespace DungeonsOfDoom
             
             if (RndUtils.Try(50))
             {
-                Weapon Sword = new Weapon("Sword", 10, 2);
+                Weapon Sword = new Weapon("Sword", RndUtils.ReturnValue(5,15), 2);
                 return Sword;
             }
             else

@@ -16,8 +16,10 @@ namespace DungeonsOfDoom
         {
             if ((this.AttackDamage * 2) < enemy.AttackDamage)
             {
-                return$"{this.Name} ran away";
                 this.Health = 0;
+                Console.WriteLine($"{this.Name} ran away");
+                return "";
+                
             }
             else
             {
