@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DoD
 {
+    //Kolla CheekyTomato Battle
     class Game
     {
         //Fields
