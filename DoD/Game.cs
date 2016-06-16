@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace DoD
 {
-
-    //Ändrat alla DoD
-    //Ändrat första sidan
-    //Flyttat ut cursor
-    //Satt till en prop Name i Creature, tar bort massa kod i fighten
-    //Ändrade lite i texten för att underlätta DRY
-    //Gett spelaren ett namn
     class Game
     {
         //Fields

@@ -12,6 +12,12 @@ namespace DoD
         {
             this.AttackDamage = 5; //Hårdkodad nu
         }
+        //Gör det lättare att se till att de inte har två vapen osv.
+        public bool HaveWeapon { get; set; }
+        public bool HaveShield { get; set; }
+        public bool HaveArmor { get; set; }
+
+
 
     }
 }

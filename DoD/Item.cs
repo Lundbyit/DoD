@@ -16,5 +16,14 @@ namespace DoD
             Name = name;
             Weight = weight;
         }
+        //public void Discard()
+        //{
+        //Man ska kunna kasta bort grejer
+        //}
+
+        //public void Equip()
+        //{
+        //Man ska kunna equipa, sätter
+        //}
     }
 }
