@@ -5,10 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DoD
 {
-    //randomUtils Returnar true, return number
-    //asdf
+
+    //Ändrat alla DoD
+    //Ändrat första sidan
+    //Flyttat ut cursor
+    //Satt till en prop Name i Creature, tar bort massa kod i fighten
+    //Ändrade lite i texten för att underlätta DRY
+    //Gett spelaren ett namn
     class Game
     {
         //Fields
@@ -19,23 +24,38 @@ namespace DungeonsOfDoom
         const int WorldHeight = 10;
         bool fightOn;
         int monsterIndex;
+        //Vi behöver lösa cursor problemet på ett bättre sätt, flyttar ut den så att alla kan nå den
+        int cursorLeft = 50;
+        int cursorTop = 17;
 
         //Contructors
         public Game()
         {
-            player = new Player(100, 'P');
+            cursorLeft = 50;
+            cursorTop = 17;
+            Console.WriteLine();
+            Console.WriteLine();
+            AsciiArt.PrintCentered("Dump of");
+            AsciiArt.PrintCentered("Doom");
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+            Console.WriteLine("Press start...");
+            Console.ReadKey();
+            Console.Clear();
+            cursorLeft = 45;
+            cursorTop = 14;
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+            Console.WriteLine("Vem vågar sig in i Dump of Doom?");
+            Console.SetCursorPosition(cursorLeft, cursorTop + 1);
+            string tmp = Console.ReadLine();
+            player = new Player(100, 'P', tmp);
             CreateWorld();
         }
         //Public Methods
         public void Play()
         {
-            AsciiArt.PrintCentered("HAHAHA");
-            Console.ReadKey();
-
             do
             {
                 Console.Clear();
-
                 DrawWorld();
                 PrintInventory();
                 HandleMovement();
@@ -47,15 +67,18 @@ namespace DungeonsOfDoom
                 Console.WriteLine("Congratulations, you won the game.");
             }
             else
-            Console.WriteLine("GAME OVER YOU SUCK");
+            {
+                Console.Clear();
+                Console.WriteLine("GAME OVER YOU SUCK");
+            }
         }
 
         //Private Methods
         private void PrintInventory()
         {
-            const int cursorLeft = 20;
-            int cursorTop = 1;
             //int potions = 0;
+            cursorLeft = 40;
+            cursorTop = 1;
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
             Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
@@ -68,50 +91,44 @@ namespace DungeonsOfDoom
                 cursorTop++;
             }
 
-            
         }
         private void FightArena(Monster monster)
         {
-            TextUtils.AnimateLine($"You encountered a {monster.Name}", 10);
+            PrintInventory();
+            cursorLeft = 0;
+            cursorTop = 11;
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+            TextUtils.AnimateLine($"You encountered a... ", 10);
+            TextUtils.AnimateLine($"{monster.Name}", 50);
             while (player.IsAlive && monster.IsAlive)
             {
-                
+
                 if (player.Agility >= monster.Agility)
                 {
-                    //Vi kan göra en metod 
-                    player.Attack(monster);
-                    TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
-                    if (monster.IsAlive)
+                    Console.WriteLine(player.Attack(monster));
+                    if (monster.IsAlive && monster.IsAlive)
                     {
-                        monster.Attack(player);
-                        TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
+                        Console.WriteLine(monster.Attack(player));
                     }
                 }
                 else
                 {
-                    monster.Attack(player);
-                    //Köra en if monster isAlive(?)
-                    if (!monster.IsAlive)
+                    Console.WriteLine(monster.Attack(player));
+                    if (player.IsAlive && monster.IsAlive)
                     {
-                        monsters.RemoveAt(monsterIndex);
-                        return;
-                    }
-                    TextUtils.AnimateLine($"{monster.Name} did {monster.AttackDamage} damage on you");
-                    if (player.IsAlive)
-                    {
-                        player.Attack(monster);
-                        TextUtils.AnimateLine($"You did {player.AttackDamage} damage on {monster.Name}");
+                        Console.WriteLine(player.Attack(monster));
                     }
                 }
-
             }
             if (player.IsAlive)
             {
+                //Console.Clear();
                 player.Inventory.Add(monsters[monsterIndex]);
-                TextUtils.AnimateLine($"You killed {monster.Name}");
+                TextUtils.AnimateLine($"{monster.Name} is dead");
                 monsters.RemoveAt(monsterIndex);
+                Console.ReadKey();
                 fightOn = false;
-                Monster.monsterCount--;
+                Monster.monsterCount--;                
             }
             else
             {
@@ -119,7 +136,6 @@ namespace DungeonsOfDoom
                 fightOn = false;
             }
         }
-
         private void CreateWorld()
         {
             #region
@@ -140,7 +156,7 @@ namespace DungeonsOfDoom
                     Room room = new Room();
                     world[x, y] = room;
 
-                    if (RndUtils.ReturnValue (0, 10) == 1 && x != 0 && y != 0) //If the room 
+                    if (RndUtils.ReturnValue(0, 10) == 1 && x != 0 && y != 0) //If the room 
                     {
                         room.Item = WhichItem();
 
@@ -164,18 +180,17 @@ namespace DungeonsOfDoom
                 C = new EvilCucumber(10);
             }
             else
+            {
                 C = new CheekyTomato(10);
-
-            int monsterX = RndUtils.ReturnValue(0, WorldWidth);
-            int monsterY = RndUtils.ReturnValue(0, WorldHeight);
-            C.X = monsterX;
-            C.Y = monsterY;
+            }
+            C.X = RndUtils.ReturnValue(0, WorldWidth); ;
+            C.Y = RndUtils.ReturnValue(0, WorldHeight); ;
             return C;
         }
 
         private Item WhichItem()
         {
-            
+
             if (RndUtils.Try(50))
             {
                 Weapon Sword = new Weapon("Sword", RndUtils.ReturnValue(5,15), 2);
@@ -223,12 +238,6 @@ namespace DungeonsOfDoom
                     {
                         Console.Write(".");
                     }
-
-               
-                        //Console.SetCursorPosition(monster.X, monster.Y);
-                        //Console.Write(monster.Icon);
-                    
-
                 }
                 Console.WriteLine();
             }
@@ -236,14 +245,16 @@ namespace DungeonsOfDoom
             {
                 FightArena(monsters[monsterIndex]);
             }
-
         }
-
         private void HandleMovement()
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            //TextUtils.AnimateLine("Ange riktning...");
+            if (!fightOn)
+            {
+                cursorLeft = 0;
+                cursorTop = 10;
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.WriteLine("Ange riktning...");
+            }
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             int newX = player.X;
