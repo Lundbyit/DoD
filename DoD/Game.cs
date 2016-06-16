@@ -25,27 +25,33 @@ namespace DoD
         bool fightOn;
         int monsterIndex;
         //Vi behöver lösa cursor problemet på ett bättre sätt, flyttar ut den så att alla kan nå den
-        int cursorLeft = 50;
-        int cursorTop = 17;
+        int cursorLeftInventory = 50;
+        int cursorTopInventory = 17;
+        int cursorLeftStatus = 5;
+        int cursorTopStatus = 1;
 
         //Contructors
         public Game()
         {
-            cursorLeft = 50;
-            cursorTop = 17;
+            cursorLeftInventory = 50;
+            cursorTopInventory = 17;
+            cursorLeftStatus = 5;
+            cursorTopStatus = 1;
+            
+
             Console.WriteLine();
             Console.WriteLine();
             AsciiArt.PrintCentered("Dump of");
             AsciiArt.PrintCentered("Doom");
-            Console.SetCursorPosition(cursorLeft, cursorTop);
+            Console.SetCursorPosition(cursorLeftInventory, cursorTopInventory);
             Console.WriteLine("Press start...");
             Console.ReadKey();
             Console.Clear();
-            cursorLeft = 45;
-            cursorTop = 14;
-            Console.SetCursorPosition(cursorLeft, cursorTop);
+            cursorLeftInventory = 45;
+            cursorTopInventory = 14;
+            Console.SetCursorPosition(cursorLeftInventory, cursorTopInventory);
             Console.WriteLine("Vem vågar sig in i Dump of Doom?");
-            Console.SetCursorPosition(cursorLeft, cursorTop + 1);
+            Console.SetCursorPosition(cursorLeftInventory, cursorTopInventory + 1);
             string tmp = Console.ReadLine();
             player = new Player(100, 'P', tmp);
             CreateWorld();
@@ -58,6 +64,7 @@ namespace DoD
                 Console.Clear();
                 DrawWorld();
                 PrintInventory();
+                PrintPlayerStatus();
                 HandleMovement();
 
             } while (player.IsAlive && Monster.monsterCount > 0);
@@ -77,27 +84,42 @@ namespace DoD
         private void PrintInventory()
         {
             //int potions = 0;
-            cursorLeft = 40;
-            cursorTop = 1;
-            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop);
+            cursorLeftInventory = 40;
+            cursorTopInventory = 1;
+            Console.SetCursorPosition(WorldWidth + cursorLeftInventory, cursorTopInventory);
             Console.WriteLine($"Backpack size: {player.InventorySize} oz");
-            Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 2);
+            Console.SetCursorPosition(WorldWidth + cursorLeftInventory, cursorTopInventory + 2);
             Console.WriteLine("Backpack:");
 
             foreach (Iluggable items in player.Inventory)
             {
-                Console.SetCursorPosition(WorldWidth + cursorLeft, cursorTop + 3);
+                Console.SetCursorPosition(WorldWidth + cursorLeftInventory, cursorTopInventory + 3);
                 Console.WriteLine($"{items.Name}  Weight: {items.Weight}");
-                cursorTop++;
+                cursorTopInventory++;
             }
+            
+        }
+
+        private void PrintPlayerStatus()
+        {
+            Console.SetCursorPosition(WorldWidth + cursorLeftStatus, cursorTopStatus);
+            Console.WriteLine ($"Status : {player.Name}" );
+            Console.SetCursorPosition(WorldWidth + cursorLeftStatus, cursorTopStatus + 1 );
+            Console.WriteLine(".............................");
+            Console.SetCursorPosition(WorldWidth + cursorLeftStatus, cursorTopStatus + 2);
+            Console.WriteLine($"HP = {player.Health}");
+            Console.SetCursorPosition(WorldWidth + cursorLeftStatus, cursorTopStatus + 3);
+            Console.WriteLine($"Agility = {player.Agility}");
+            Console.SetCursorPosition(WorldWidth + cursorLeftStatus, cursorTopStatus + 4);
+            Console.WriteLine($"Attack = {player.AttackDamage}");
 
         }
         private void FightArena(Monster monster)
         {
             PrintInventory();
-            cursorLeft = 0;
-            cursorTop = 11;
-            Console.SetCursorPosition(cursorLeft, cursorTop);
+            cursorLeftInventory = 0;
+            cursorTopInventory = 11;
+            Console.SetCursorPosition(cursorLeftInventory, cursorTopInventory);
             TextUtils.AnimateLine($"You encountered a... ", 10);
             TextUtils.AnimateLine($"{monster.Name}", 50);
             while (player.IsAlive && monster.IsAlive)
@@ -250,9 +272,9 @@ namespace DoD
         {
             if (!fightOn)
             {
-                cursorLeft = 0;
-                cursorTop = 10;
-                Console.SetCursorPosition(cursorLeft, cursorTop);
+                cursorLeftInventory = 0;
+                cursorTopInventory = 10;
+                Console.SetCursorPosition(cursorLeftInventory, cursorTopInventory);
                 Console.WriteLine("Ange riktning...");
             }
             ConsoleKeyInfo keyInfo = Console.ReadKey();
